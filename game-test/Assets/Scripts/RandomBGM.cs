@@ -8,14 +8,10 @@ public class RandomBGM : MonoBehaviour
     [SerializeField] private AudioClip[] soundTrack;
     private AudioSource audioSource;
 
-    
-
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         PlayRandomAudio();
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     private void PlayRandomAudio()
