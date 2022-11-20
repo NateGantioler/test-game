@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private AudioSource jumpSoundEffekt;
+    private bool isTimeSlowed;
+    private float defaultGravityScale;
+    private float defaultMass;
+    private float defaultJumpHeight;
 
     private enum AnimationState 
     {
@@ -30,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>(); 
+        defaultGravityScale = rb.gravityScale;
+        defaultMass = rb.mass;
+        defaultJumpHeight = jumpHeight;
     }
 
     void Update()
@@ -41,7 +48,28 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
             jumpSoundEffekt.Play();
+        }
+
+        
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Q pressed");
+            if(isTimeSlowed == true)
+            {
+                Time.timeScale = 1;
+                isTimeSlowed = false;
+                //jumpHeight = defaultJumpHeight;
+            }
+            else
+            {
+                Time.timeScale = 0.5f;
+                isTimeSlowed = true;
+                //jumpHeight = defaultJumpHeight * (Time.timeScale * 1.5f);
+            }
+            //rb.gravityScale = defaultGravityScale / Time.timeScale;
+            //rb.mass = defaultMass / Time.timeScale;
         } 
+        
 
         UpdateAnimationState();
     }
