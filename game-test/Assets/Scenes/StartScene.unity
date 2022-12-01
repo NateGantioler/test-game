@@ -4332,6 +4332,8 @@ MonoBehaviour:
   SpeedUpScale: 2
   SpeedUpPitch: 1.25
   TimeManagerText: {fileID: 691668887}
+  FreezeMaterial: {fileID: 2100000, guid: 861932152cff4ef4daa691bbe33f43ba, type: 2}
+  DefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1634610296
 GameObject:
   m_ObjectHideFlags: 0

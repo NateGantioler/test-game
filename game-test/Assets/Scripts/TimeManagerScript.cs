@@ -14,6 +14,10 @@ public class TimeManagerScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TimeManagerText;
     private GameObject musicManager;
     private AudioSource musicSource;
+    private GameObject Player;
+    private SpriteRenderer PlayerSprite;
+    [SerializeField] private Material FreezeMaterial;
+    [SerializeField] private Material DefaultMaterial;
 
     private void OnEnable() 
     {
@@ -84,12 +88,34 @@ public class TimeManagerScript : MonoBehaviour
 
     private void FreezeTime()
     {
+        GameObject[] SceneObjects = GameObject.FindObjectsOfType<GameObject>();
+        GameObject[] TileObjects = GameObject.FindGameObjectsWithTag("Tiles");
         if(TimeScale == 0f)
         {
+            foreach(GameObject SceneObject in SceneObjects)
+            {
+                if(SceneObject.GetComponent<SpriteRenderer>() != null)
+                SceneObject.GetComponent<SpriteRenderer>().material = DefaultMaterial;
+            }
+            foreach(GameObject TileObject in TileObjects)
+            {
+                if(TileObject.GetComponent<SpriteRenderer>() != null)
+                TileObject.GetComponent<SpriteRenderer>().material = DefaultMaterial;
+            }
             ResetTime();
         }
         else
         {
+            foreach(GameObject SceneObject in SceneObjects)
+            {
+                if(SceneObject.GetComponent<SpriteRenderer>() != null)
+                SceneObject.GetComponent<SpriteRenderer>().material = FreezeMaterial;
+            }
+             foreach(GameObject TileObject in TileObjects)
+            {
+                if(TileObject.GetComponent<SpriteRenderer>() != null)
+                TileObject.GetComponent<SpriteRenderer>().material = FreezeMaterial;
+            }
             TimeScale = 0f;
             musicSource.pitch = 1f;
         }
