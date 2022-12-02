@@ -9,10 +9,13 @@ public class LevelFinish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Invoke("PlayNextLevel", 2);
-        collision.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        collision.GetComponent<Animator>().SetTrigger("win");
-        finishSound.Play();
+        if(TimeManagerScript.TimeScale == 1f)
+        {
+            Invoke("PlayNextLevel", 2);
+            collision.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            collision.GetComponent<Animator>().SetTrigger("win");
+            finishSound.Play();
+        }
     }
 
     private void PlayNextLevel()

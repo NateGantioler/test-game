@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class TimeManagerScript : MonoBehaviour
 {
@@ -89,18 +90,18 @@ public class TimeManagerScript : MonoBehaviour
     private void FreezeTime()
     {
         GameObject[] SceneObjects = GameObject.FindObjectsOfType<GameObject>();
-        GameObject[] TileObjects = GameObject.FindGameObjectsWithTag("Tiles");
+        //GameObject[] TileObjects = GameObject.FindGameObjectsWithTag("Tiles");
         if(TimeScale == 0f)
         {
             foreach(GameObject SceneObject in SceneObjects)
             {
-                if(SceneObject.GetComponent<SpriteRenderer>() != null)
-                SceneObject.GetComponent<SpriteRenderer>().material = DefaultMaterial;
-            }
-            foreach(GameObject TileObject in TileObjects)
-            {
-                if(TileObject.GetComponent<SpriteRenderer>() != null)
-                TileObject.GetComponent<SpriteRenderer>().material = DefaultMaterial;
+                if(!SceneObject.CompareTag("Player"))
+                {
+                    if(SceneObject.GetComponent<SpriteRenderer>() != null)
+                    SceneObject.GetComponent<SpriteRenderer>().material = DefaultMaterial;
+                    else if(SceneObject.GetComponent<TilemapRenderer>() != null)
+                    SceneObject.GetComponent<TilemapRenderer>().material = DefaultMaterial;
+                }
             }
             ResetTime();
         }
@@ -108,13 +109,13 @@ public class TimeManagerScript : MonoBehaviour
         {
             foreach(GameObject SceneObject in SceneObjects)
             {
-                if(SceneObject.GetComponent<SpriteRenderer>() != null)
-                SceneObject.GetComponent<SpriteRenderer>().material = FreezeMaterial;
-            }
-             foreach(GameObject TileObject in TileObjects)
-            {
-                if(TileObject.GetComponent<SpriteRenderer>() != null)
-                TileObject.GetComponent<SpriteRenderer>().material = FreezeMaterial;
+                if(!SceneObject.CompareTag("Player"))
+                {
+                    if(SceneObject.GetComponent<SpriteRenderer>() != null)
+                    SceneObject.GetComponent<SpriteRenderer>().material = FreezeMaterial;
+                    else if(SceneObject.GetComponent<TilemapRenderer>() != null)
+                    SceneObject.GetComponent<TilemapRenderer>().material = FreezeMaterial;
+                }
             }
             TimeScale = 0f;
             musicSource.pitch = 1f;
